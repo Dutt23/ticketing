@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy: 
+  kubectl: 
+    manifests:
+      - ./infra/k8s/*
+build: 
+  local:
+    push: false
+  artifacts:
+    - image: dutt23/ticketing-auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts'
+            dest: . # Basically saying take whenever the src file was found, and put it in the same place in the container
