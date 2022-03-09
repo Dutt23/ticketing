@@ -11,11 +11,11 @@ spec:
   template:
     metadata:
       labels:
-        app: auth
+        app: auth # This label will be applied to the pod
     spec: 
       containers: 
         - name: auth
-          image: dutt23/ticketing-auth
+          image: dutt23/ticketing-auth 
 
 ---
 
