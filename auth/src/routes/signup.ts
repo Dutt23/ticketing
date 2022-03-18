@@ -30,23 +30,22 @@ async (req: Request, res: Response) =>{
     throw new BadRequestError('User already exists')
   }
 
-  console.log("IEEIEHJ")
   const newUser = User.build({
     email,
     password
   })
-  console.log(newUser)
+
   await newUser.save()
   // Generate JWT
   const userJwt = jwt.sign({
     id: newUser.id,
     email: newUser.email
-  }, 'abcd')
+  }, process.env.JWT_KEY!)
 
   req.session = {
     jwt: userJwt
   }
-  
+
   res.status(201).send(newUser)
 })
 
