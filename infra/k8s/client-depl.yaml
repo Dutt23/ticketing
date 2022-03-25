@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector: 
+    matchLabels: 
+    # This is the name service searches for to govern
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client # This label will be applied to the pod
+    spec: 
+      containers: 
+        - name: client
+          image: dutt23/ticketing-client 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec: 
+  selector: 
+    app: client
+  ports: 
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
