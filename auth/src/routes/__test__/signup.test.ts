@@ -50,3 +50,32 @@ it('should return 400 for invalid email', async () =>{
          })
         .expect(400)
 })
+
+it('should return 400 for duplicate email', async () =>{
+  await request(app)
+         .post('/api/users/signup')
+         .send({
+           email:'test@test.com',
+           password: '1234567'
+         })
+        .expect(201)
+        
+  await request(app)
+        .post('/api/users/signup')
+        .send({
+          email:'test@test.com',
+          password: '1234567'
+        })
+      .expect(400)
+})
+
+it('Cookie should be defined after sign up', async () =>{
+  const response = await request(app)
+         .post('/api/users/signup')
+         .send({
+           email:'test@test.com',
+           password: '1234567'
+         })
+        .expect(201)
+  expect(response.get('Set-Cookie')).toBeDefined();
+})

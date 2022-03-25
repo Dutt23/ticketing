@@ -1,3 +1,5 @@
+// For setting up test related stuff, check package.json
+// in the jest portion.
 import express from 'express'
 import cookieSession from 'cookie-session';
 import 'express-async-errors'
@@ -14,7 +16,9 @@ app.set('trust proxy', true)
 app.use(json())
 app.use(cookieSession({
   signed: false,
-  secure: true
+  // cookie with jwt is only set, when api call is made through secure connection
+  // We toggle it off during tests
+  secure: process.env.NODE_ENV !== 'test'
 }))
 
 app.use(currentUserRouter)
