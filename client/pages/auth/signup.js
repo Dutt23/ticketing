@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import  useRequest from '../../hooks/use-request'
-
+import { useRouter } from 'next/router'
 const SignUp = () => {
 
+  const router = useRouter()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { doRequest, errors } = useRequest({
+  const { doRequest, renderErrors } = useRequest({
     url: '/api/users/signup',
     body: {
       email, password
     },
-    method: 'post'
+    method: 'post',
+    onSuccess: () => router.push('/')
   });
 
   const onSubmit = async (event) =>{
@@ -36,7 +38,7 @@ const SignUp = () => {
           type="password" 
           className="form-control"/>
       </div>
-      {errors}
+      {renderErrors()}
       <button className="btn btn-primary">Sign Up</button>
     </form>
   )
