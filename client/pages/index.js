@@ -1,12 +1,28 @@
+import axios from 'axios'
+import isSSR  from '../utils/isSSR';
 const Landing = ({
-  color 
-}) => <h1>Landing Page {color}</h1>
+  currentUser 
+}) => <h1>Landing Page {JSON.stringify(currentUser)}</h1>
 
 
-Landing.getInitialProps = () =>{
-  console.log("on server side")
-  return {
-    color: 'red'
+// https://github.com/vercel/next.js/blob/deprecated-main/errors/circular-structure.md
+Landing.getInitialProps = async ({ req }) =>{
+  if(isSSR){
+    console.log("on server side");
+    const { data } = await axios.get('http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentUser',{
+      headers: req.headers
+    }).catch((err) => {
+      console.log(err.message)
+    });
+    console.log(data)
+    return data;
+  }
+  else {
+    console.log("On client side")
+    const { data } = await axios.get('api/users/currentUser').catch((err) => {
+      console.log(err.message)
+    });
+    return data;
   }
 }
 
