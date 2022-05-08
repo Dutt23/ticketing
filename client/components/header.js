@@ -5,6 +5,8 @@ export default ({ currentUser }) => {
   const links = [
     !currentUser && {label: 'Sign Up', href: '/auth/signup'},
     !currentUser && {label: 'Sign In', href: '/auth/signin'},
+    // Signout request always has to come from a component.
+    // While ssr , if we sign out, the server does not know what to do with a cookie.
     currentUser && {label: 'Sign Out', href: '/auth/signout'},
   ].filter(link => link)
   .map(({ label, href}) => <li key={href} className='nav-item'>

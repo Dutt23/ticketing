@@ -16,6 +16,7 @@ const AppComponent = ({ Component, pageProps, currentUser}) =>{
 }
 
 // https://github.com/vercel/next.js/blob/deprecated-main/errors/circular-structure.md
+// This is called everytime we route to another page as well from the browser
 AppComponent.getInitialProps = async (context) =>{
   const { data } = await buildClient(context.ctx).get('/api/users/currentUser');
   let pageProps = {};
