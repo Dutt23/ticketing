@@ -1,3 +1,6 @@
 
 cannot useRequest inside getInitialProps, as a hook is only used inside a react component.
 getInitialProps is called server side, and during ssr  component is allowed only to fetch data once.
+
+getInitialProps in page components only gets request 
+While getInitialProps inside Custom app components , getInitialProps(component, context:{req, res}) 
