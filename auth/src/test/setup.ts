@@ -2,7 +2,6 @@ import { app } from '../app';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from "mongoose";
 import request from 'supertest';
-import { cookie } from 'express-validator';
 // Won't be available in normal environments
 // As it's being set up here
 declare global {
