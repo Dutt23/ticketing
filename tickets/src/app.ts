@@ -5,6 +5,7 @@ import cookieSession from 'cookie-session';
 import 'express-async-errors'
 import { json } from 'body-parser'
 import { errorHandler, RouteNotfound } from '@shatyaki-dutt-tickets/common';
+import { createTicketRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true)
@@ -16,6 +17,7 @@ app.use(cookieSession({
   secure: process.env.NODE_ENV !== 'test'
 }))
 
+app.use(createTicketRouter)
 app.all('*', async () =>{
   throw new RouteNotfound('Route not found')
 })
