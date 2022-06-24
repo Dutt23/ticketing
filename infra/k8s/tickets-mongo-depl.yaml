@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets-mongo # How it finds the pod to manage
+  template:
+    metadata:
+      labels:
+        app: tickets-mongo # This label will be applied to the pod
+    spec:
+      containers:
+        - name: tickets-mongo
+          image: mongo #This image comes from official mongo db
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-mongo-srv
+spec: 
+  selector: 
+    app: tickets-mongo #This matches to selector matchlabels etc
+  ports: 
+    - name: db #For logging purposes
+      protocol: TCP
+      port: 27017
+      targetPort: 27017

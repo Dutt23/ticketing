@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: tickets-depl
 spec:
   replicas: 1
   selector: 
     matchLabels: 
     # This is the name service searches for to govern
-      app: auth
+      app: tickets
   template:
     metadata:
       labels:
-        app: auth # This label will be applied to the pod
+        app: tickets # This label will be applied to the pod
     spec: 
       containers: 
-        - name: auth
-          image: dutt23/ticketing-auth 
-          env:
+        - name: tickets
+          image: dutt23/ticketing-tickets 
+          env: 
             - name: MONGO_URI
-              value: mongodb://auth-mongo-srv:27017/auth 
+              value: mongodb://tickets-mongo-srv:27017/tickets 
             - name: JWT_KEY
               valueFrom: 
                 secretKeyRef:
@@ -30,12 +30,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: tickets-srv
 spec: 
   selector: 
-    app: auth
+    app: tickets
   ports: 
-    - name: auth
+    - name: tickets
       protocol: TCP
       port: 3000
       targetPort: 3000

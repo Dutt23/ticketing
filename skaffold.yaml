@@ -19,6 +19,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: . # Basically saying take whenever the src file was found, and put it in the same place in the container
+    - image: dutt23/ticketing-tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts'
+            dest: . # Basically saying take whenever the src file was found, and put it in the same place in the container
     - image: dutt23/ticketing-client
       context: client
       docker:

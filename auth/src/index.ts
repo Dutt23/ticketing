@@ -2,8 +2,11 @@ import mongoose from 'mongoose';
 import { app } from './app';
 
 const connectDb = async () => {
+  if(!process.env.MONGO_URI){
+    throw new Error("Mongo uri not defined")
+  }
   try {
-    const res = await mongoose.connect(`mongodb://auth-mongo-srv:27017/auth`);
+    const res = await mongoose.connect(process.env.MONGO_URI);
     console.log(res.modelNames())
     console.log("Connected to mongo db")
   }
