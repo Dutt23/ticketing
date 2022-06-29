@@ -6,6 +6,7 @@ import 'express-async-errors'
 import { json } from 'body-parser'
 import { errorHandler, RouteNotfound, currentUser } from '@shatyaki-dutt-tickets/common';
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true)
@@ -20,7 +21,8 @@ app.use(cookieSession({
 // otherwise user won't be set
 app.use(currentUser);
 
-app.use(createTicketRouter)
+app.use(createTicketRouter);
+app.use(showTicketRouter);
 app.all('*', async () =>{
   throw new RouteNotfound('Route not found')
 })
