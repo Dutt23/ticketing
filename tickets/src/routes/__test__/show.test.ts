@@ -2,7 +2,8 @@ import request from 'supertest';
 import { app } from '../../app';
 
 it('returns 404 if ticket is not found', async () => {
-  await request(app).get('/api/tickets/fail_ticket_one').expect(404);
+  const cookie = global.signin();
+  await request(app).get('/api/tickets/fail_ticket_one').set('Cookie', cookie).expect(404);
 });
 
 it('returns ticket if found', async () =>{
