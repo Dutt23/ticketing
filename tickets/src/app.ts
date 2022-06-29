@@ -7,6 +7,7 @@ import { json } from 'body-parser'
 import { errorHandler, RouteNotfound, currentUser } from '@shatyaki-dutt-tickets/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
+import { indexTicketsRouter } from './routes/index';
 
 const app = express();
 app.set('trust proxy', true)
@@ -23,6 +24,8 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexTicketsRouter);
+
 app.all('*', async () =>{
   throw new RouteNotfound('Route not found')
 })

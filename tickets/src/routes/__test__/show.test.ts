@@ -1,9 +1,11 @@
 import request from 'supertest';
 import { app } from '../../app';
+import mongoose from 'mongoose';
 
 it('returns 404 if ticket is not found', async () => {
   const cookie = global.signin();
-  await request(app).get('/api/tickets/fail_ticket_one').set('Cookie', cookie).expect(404);
+  const id = new mongoose.Types.ObjectId().toHexString();
+  await request(app).get(`/api/tickets/${id}`).set('Cookie', cookie).expect(404);
 });
 
 it('returns ticket if found', async () =>{
