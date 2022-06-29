@@ -12,8 +12,10 @@ if(err instanceof CustomError){
   statusCode = err.statusCode;
   errorResponse = err.serializeErrors();
 }
+else {
+  console.error(err);
+}
 
-console.error(err);
 res.status(statusCode).send({
   errors: errorResponse
 })
