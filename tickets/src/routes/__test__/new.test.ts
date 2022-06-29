@@ -65,5 +65,13 @@ it('return error if invalid price is provided', async () =>{
 });
 
 it('creates a ticket with valid parameters', async () =>{
-  
+  const cookie = global.signin();
+  await request(app)
+  .post('/api/tickets')
+  .set('Cookie', cookie)
+  .send({
+    title:'test',
+    price: 1000
+  })
+  .expect(201);
 });
