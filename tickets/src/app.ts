@@ -4,7 +4,7 @@ import express from 'express'
 import cookieSession from 'cookie-session';
 import 'express-async-errors'
 import { json } from 'body-parser'
-import { errorHandler, RouteNotfound } from '@shatyaki-dutt-tickets/common';
+import { errorHandler, RouteNotfound, currentUser } from '@shatyaki-dutt-tickets/common';
 import { createTicketRouter } from './routes/new';
 
 const app = express();
@@ -16,6 +16,9 @@ app.use(cookieSession({
   // We toggle it off during tests
   secure: process.env.NODE_ENV !== 'test'
 }))
+// needs to be after cookie session.
+// otherwise user won't be set
+app.use(currentUser);
 
 app.use(createTicketRouter)
 app.all('*', async () =>{
