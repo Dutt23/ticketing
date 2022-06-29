@@ -13,6 +13,7 @@ if(err instanceof CustomError){
   errorResponse = err.serializeErrors();
 }
 
+console.error(err);
 res.status(statusCode).send({
   errors: errorResponse
 })
